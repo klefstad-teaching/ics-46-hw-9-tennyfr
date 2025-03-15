@@ -4,9 +4,6 @@
 #include <set>
 #include <vector>
 #include <string>
-#include <algorithm>
-#include <cctype>
-#include <cmath>
 
 using namespace std;
 
@@ -14,7 +11,6 @@ vector<string> ladder;
 set<string> word_list;
 string start_word;
 string end_word;
-
 
 void error(string word1, string word2, string msg) {
     cerr << "Error: " << msg << endl;
@@ -42,21 +38,21 @@ bool edit_distance_within(const string& str1, const string& str2, int d) {
 }
 
 bool is_adjacent(const string& word1, const string& word2) {
-    return edit_distance_within(word1, word2, 1) && (word1 != word2);
+    return edit_distance_within(word1, word2, 1);
 }
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list) {
-    queue<vector<string>> queue;
+    queue<vector<string>> q;
     set<string> visited;
     
     if (word_list.find(end_word) == word_list.end()) return {};
     
-    queue.push({begin_word});
+    q.push({begin_word});
     visited.insert(begin_word);
     
-    while (!queue.empty()) {
-        vector<string> current_ladder = queue.front();
-        queue.pop();
+    while (!q.empty()) {
+        vector<string> current_ladder = q.front();
+        q.pop();
         string last_word = current_ladder.back();
         
         for (const string& word : word_list) {
@@ -69,7 +65,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
             if (word == end_word) return new_ladder;
             
             visited.insert(word);
-            queue.push(new_ladder);
+            q.push(new_ladder);
         }
     }
     return {};
@@ -92,14 +88,13 @@ void load_words(set<string>& word_list, const string& file_name) {
 
 void print_word_ladder(const vector<string>& ladder) {
     if (ladder.empty()) {
-        cout << "No ladder found." << endl;
+        cout << "No word ladder found." << endl;
         return;
     }
     
-    cout << "Word ladder (" << ladder.size()-1 << " steps):\n";
+    cout << "Word ladder found: ";
     for (size_t i = 0; i < ladder.size(); ++i) {
-        if (i > 0) cout << " → ";
-        cout << ladder[i];
+        cout << ladder[i] << " ";
     }
     cout << endl;
 }

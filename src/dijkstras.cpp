@@ -8,9 +8,7 @@ vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& prev
     previous.assign(n, -1);
     distances[source] = 0;
 
-    priority_queue<pair<int, int>, 
-                   vector<pair<int, int>>,
-                   greater<pair<int, int>>> pq;
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
     pq.emplace(0, source);
 
     while (!pq.empty()) {
@@ -45,14 +43,11 @@ vector<int> extract_shortest_path(const vector<int>& distances, const vector<int
 
 void print_path(const vector<int>& v, int total) {
     if (v.empty()) {
-        cout << "No path exists" << endl;
+        cout << "\nTotal cost is " << total << endl;
         return;
     }
-
-    cout << "Path: ";
     for (size_t i = 0; i < v.size(); ++i) {
-        if (i > 0) cout << " → ";
-        cout << v[i];
+        cout << v[i] << " ";
     }
-    cout << "\nTotal weight: " << total << endl;
+    cout << "\nTotal cost is " << total << endl;
 }
