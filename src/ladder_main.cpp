@@ -24,7 +24,7 @@ int main() {
     
     vector<string> ladder = generate_word_ladder(start, end, dictionary);
     print_word_ladder(ladder);
-    verify_word_ladder(ladder, dictionary, start, end);
+    verify_word_ladder();
     
     return 0;
 }

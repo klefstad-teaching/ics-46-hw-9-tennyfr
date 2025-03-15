@@ -10,6 +10,12 @@
 
 using namespace std;
 
+vector<string> ladder;
+set<string> word_list;
+string start_word;
+string end_word;
+
+
 void error(string word1, string word2, string msg) {
     cerr << "Error: " << msg << endl;
 }
@@ -98,24 +104,24 @@ void print_word_ladder(const vector<string>& ladder) {
     cout << endl;
 }
 
-void verify_word_ladder(const vector<string>& ladder, const set<string>& word_list, const string& start_word, const string& end_word) {
+void verify_word_ladder() {
     if (ladder.empty()) return;
     
     bool valid = true;
-    if ((ladder[0] != start_word) || (ladder.back() != end_word) {
+    if ((ladder[0] != start_word) || (ladder.back() != end_word)) {
         cerr << "Invalid ladder" << endl;
         valid = false;
     }
     for (size_t i = 1; i < ladder.size(); ++i) {
         if (!word_list.count(ladder[i])) {
-            cerr << "Word does not exist " << ladder[i] << endl;
+            cerr << "Word does not exist: " << ladder[i] << endl;
             valid = false;
         }
         if (!is_adjacent(ladder[i-1], ladder[i])) {
-            cerr << "Not adjacent" << ladder[i-1] << " → " << ladder[i] << endl;
+            cerr << "Not adjacent: " << ladder[i-1] << " -> " << ladder[i] << endl;
             valid = false;
         }
     }
-    if (valid) cout << "Ladder validation successful" << endl;
+    if (valid)
+        cout << "Ladder validation successful" << endl;
 }
-
